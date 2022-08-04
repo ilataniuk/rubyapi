@@ -1,0 +1,36 @@
+version: '3.1'
+services:
+  db:
+    container_name: db
+    image: mysql
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+#    volumes:
+#      - ./data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: elfxf
+  backend:
+    container_name: backend
+    build: ./blog-api
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: root
+      MYSQL_PASS: elfxf
+    volumes:
+      - ./blog-api:/blog-api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+  frontend:
+    container_name: frontend
+    image: "node:14-alpine"
+    working_dir: /blog-app
+    volumes:
+      - ./blog-app:/blog-app
+    command: "npm start"
+    ports:
+      - "3005:3005"
+    depends_on:
+      - backend
