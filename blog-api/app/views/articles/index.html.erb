@@ -1,2 +1,10 @@
-<h1>Articles#index</h1>
-<p>Find me in app/views/articles/index.html.erb</p>
+<h1>🗂 Articles</h1>
+<ul class="d-grid gap-3 list-group" style="grid-template-columns: repeat(auto-fill,minmax(340px,1fr))">
+<% @articles.each do |article| %>
+  <li class="list-unstyled pb-2 border rounded-3 g-col-4">
+    <h4 class="bg-light rounded-top p-2"><%= link_to article.title, article_path(article), class: "text-secondary text-decoration-none" %></h4>
+    <p class="p-2 mb-0"><%= article.body %></p>
+    <i class="p-2"><%= article.formatted_created_at %></i>
+  </li>
+<% end %>
+</ul>
