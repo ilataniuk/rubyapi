@@ -12,7 +12,7 @@
 </div>
   <hr class="my-4">
     <%= f.submit class: "btn btn-success active" %>
-    <% if !@art.nil? && !@art.id.nil? %>
+    <% unless @art.nil? || @art.id.nil? %>
       <%= link_to "Cancel", article_path(@art), class: "btn btn-outline-danger" %>
     <% end %>
     <%= link_to "Back to list", articles_path, class: "btn btn-outline-secondary" %>

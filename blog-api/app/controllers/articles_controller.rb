@@ -19,10 +19,6 @@ class ArticlesController < ApplicationController
     article_render(@art)
   end
 
-  def edit
-
-  end
-
   def new
     @art = Article.new
   end
@@ -64,7 +60,7 @@ class ArticlesController < ApplicationController
       else
         render json: data, status: status, serializer: (data.class == 'Article' ? ArticlesSerializer : false)
       end
-    # for compatible with React app  
+    # for compatible with React app
     elsif request.method == 'POST' && status == :ok
       redirect_to article_path(@art)
     else
@@ -73,10 +69,6 @@ class ArticlesController < ApplicationController
           redirect_to articles_path
         when :unprocesseble_entity
           redirect_to article_path(@art)
-        #when :unprocesseble_entity
-
-        else
-
       end
     end
   end
